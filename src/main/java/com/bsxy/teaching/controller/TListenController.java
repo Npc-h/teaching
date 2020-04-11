@@ -10,5 +10,5 @@ import org.springframework.stereotype.Controller;
  * @Version V1.0
  **/
 @Controller
-public class TGroupController {
+public class TListenController {
 }

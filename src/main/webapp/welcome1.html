@@ -21,7 +21,7 @@
 
                 <div class="layui-col-sm12 layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">最新一周新增用户</div>
+                        <div class="layui-card-header">最新一周评价率</div>
                         <div class="layui-card-body" style="min-height: 280px;">
                             <div id="main1" class="layui-col-sm12" style="height: 300px;"></div>
 
@@ -30,7 +30,7 @@
                 </div>
                 <div class="layui-col-sm12 layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">最新一周健康指数</div>
+                        <div class="layui-card-header">最新一周访问次数</div>
                         <div class="layui-card-body" style="min-height: 280px;">
                             <div id="main2" class="layui-col-sm12" style="height: 300px;"></div>
 
@@ -39,7 +39,7 @@
                 </div>
                 <div class="layui-col-sm12 layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">用户来源</div>
+                        <div class="layui-card-header">评价分布</div>
                         <div class="layui-card-body" style="min-height: 280px;">
                             <div id="main3" class="layui-col-sm12" style="height: 300px;"></div>
 
@@ -48,7 +48,7 @@
                 </div>
                 <div class="layui-col-sm12 layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">用户增长率</div>
+                        <div class="layui-card-header">评价率</div>
                         <div class="layui-card-body" style="min-height: 280px;">
                             <div id="main4" class="layui-col-sm12" style="height: 300px;"></div>
 
@@ -164,20 +164,20 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['健康','心理健康','道德健康','非健康',',亚健康']
+                data: ['优秀','良好','中等','及格',',不及格']
             },
             series : [
                 {
-                    name: '访问来源',
+                    name: '评价情况',
                     type: 'pie',
                     radius : '55%',
                     center: ['50%', '60%'],
                     data:[
-                        {value:335, name:'健康'},
-                        {value:310, name:'心理健康'},
-                        {value:234, name:'道德健康'},
-                        {value:135, name:'非健康'},
-                        {value:1548, name:'亚健康'}
+                        {value:335, name:'优秀'},
+                        {value:310, name:'良好'},
+                        {value:234, name:'中等'},
+                        {value:135, name:'及格'},
+                        {value:1548, name:'不及格'}
                     ],
                     itemStyle: {
                         emphasis: {
@@ -205,10 +205,10 @@
             },
             series: [
                 {
-                    name: '用户增长率',
+                    name: '评价率',
                     type: 'gauge',
                     detail: {formatter:'{value}%'},
-                    data: [{value: 60, name: '用户增长率'}]
+                    data: [{value: 60, name: '评价率'}]
                 }
             ]
         };

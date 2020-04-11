@@ -6,9 +6,8 @@
     <result column="e_grade" jdbcType="VARCHAR" property="eGrade" />
     <result column="e_content" jdbcType="VARCHAR" property="eContent" />
     <result column="e_course" jdbcType="VARCHAR" property="eCourse" />
+    <result column="e_teacher" jdbcType="VARCHAR" property="eTeacher" />
     <result column="e_person" jdbcType="VARCHAR" property="ePerson" />
-    <result column="e_para1" jdbcType="VARCHAR" property="ePara1" />
-    <result column="e_para2" jdbcType="VARCHAR" property="ePara2" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    e_id, e_grade, e_content, e_course, e_person, e_para1, e_para2
+    e_id, e_grade, e_content, e_course, e_teacher, e_person
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -83,11 +82,11 @@
   </delete>
   <insert id="insert" parameterType="com.bsxy.teaching.pojo.TEvaluate">
     insert into t_evaluate (e_id, e_grade, e_content, 
-      e_course, e_person, e_para1, 
-      e_para2)
+      e_course, e_teacher, e_person
+      )
     values (#{eId,jdbcType=INTEGER}, #{eGrade,jdbcType=VARCHAR}, #{eContent,jdbcType=VARCHAR}, 
-      #{eCourse,jdbcType=VARCHAR}, #{ePerson,jdbcType=VARCHAR}, #{ePara1,jdbcType=VARCHAR}, 
-      #{ePara2,jdbcType=VARCHAR})
+      #{eCourse,jdbcType=VARCHAR}, #{eTeacher,jdbcType=VARCHAR}, #{ePerson,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TEvaluate">
     insert into t_evaluate
@@ -104,14 +103,11 @@
       <if test="eCourse != null">
         e_course,
       </if>
+      <if test="eTeacher != null">
+        e_teacher,
+      </if>
       <if test="ePerson != null">
         e_person,
-      </if>
-      <if test="ePara1 != null">
-        e_para1,
-      </if>
-      <if test="ePara2 != null">
-        e_para2,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -127,14 +123,11 @@
       <if test="eCourse != null">
         #{eCourse,jdbcType=VARCHAR},
       </if>
+      <if test="eTeacher != null">
+        #{eTeacher,jdbcType=VARCHAR},
+      </if>
       <if test="ePerson != null">
         #{ePerson,jdbcType=VARCHAR},
-      </if>
-      <if test="ePara1 != null">
-        #{ePara1,jdbcType=VARCHAR},
-      </if>
-      <if test="ePara2 != null">
-        #{ePara2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -150,14 +143,11 @@
       <if test="eCourse != null">
         e_course = #{eCourse,jdbcType=VARCHAR},
       </if>
+      <if test="eTeacher != null">
+        e_teacher = #{eTeacher,jdbcType=VARCHAR},
+      </if>
       <if test="ePerson != null">
         e_person = #{ePerson,jdbcType=VARCHAR},
-      </if>
-      <if test="ePara1 != null">
-        e_para1 = #{ePara1,jdbcType=VARCHAR},
-      </if>
-      <if test="ePara2 != null">
-        e_para2 = #{ePara2,jdbcType=VARCHAR},
       </if>
     </set>
     where e_id = #{eId,jdbcType=INTEGER}
@@ -167,9 +157,8 @@
     set e_grade = #{eGrade,jdbcType=VARCHAR},
       e_content = #{eContent,jdbcType=VARCHAR},
       e_course = #{eCourse,jdbcType=VARCHAR},
-      e_person = #{ePerson,jdbcType=VARCHAR},
-      e_para1 = #{ePara1,jdbcType=VARCHAR},
-      e_para2 = #{ePara2,jdbcType=VARCHAR}
+      e_teacher = #{eTeacher,jdbcType=VARCHAR},
+      e_person = #{ePerson,jdbcType=VARCHAR}
     where e_id = #{eId,jdbcType=INTEGER}
   </update>
 </mapper>

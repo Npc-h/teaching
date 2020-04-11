@@ -10,8 +10,4 @@ public class TTeacher {
 
     private String tUserId;
 
-    private Integer tCourse;
-
-    private Integer tGroup;
-
 }

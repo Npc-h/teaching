@@ -8,8 +8,8 @@ public class TCourse {
 
     private String cName;
 
-    private Integer cTeacherId;
+    private String cTeacher;
 
-    private String cPara;
+    private String cSite;
 
 }

@@ -13,10 +13,8 @@ public class TEvaluate {
 
     private String eCourse;
 
+    private String eTeacher;
+
     private String ePerson;
-
-    private String ePara1;
-
-    private String ePara2;
 
 }

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @Version V1.0
  **/
 @Repository
-public class TGroupDao {
+public class TListenDao {
 }

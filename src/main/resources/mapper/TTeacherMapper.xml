@@ -5,8 +5,6 @@
     <id column="t_id" jdbcType="INTEGER" property="tId" />
     <result column="t_name" jdbcType="VARCHAR" property="tName" />
     <result column="t_user_id" jdbcType="VARCHAR" property="tUserId" />
-    <result column="t_course" jdbcType="INTEGER" property="tCourse" />
-    <result column="t_group" jdbcType="INTEGER" property="tGroup" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,10 +65,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    t_id, t_name, t_user_id, t_course, t_group
+    t_id, t_name, t_user_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from t_teacher
     where t_id = #{tId,jdbcType=INTEGER}
@@ -80,10 +78,10 @@
     where t_id = #{tId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bsxy.teaching.pojo.TTeacher">
-    insert into t_teacher (t_id, t_name, t_user_id,
-      t_course, t_group)
-    values (#{tId,jdbcType=INTEGER}, #{tName,jdbcType=VARCHAR}, #{tUserId,jdbcType=VARCHAR},
-      #{tCourse,jdbcType=INTEGER}, #{tGroup,jdbcType=INTEGER})
+    insert into t_teacher (t_id, t_name, t_user_id
+      )
+    values (#{tId,jdbcType=INTEGER}, #{tName,jdbcType=VARCHAR}, #{tUserId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TTeacher">
     insert into t_teacher
@@ -97,12 +95,6 @@
       <if test="tUserId != null">
         t_user_id,
       </if>
-      <if test="tCourse != null">
-        t_course,
-      </if>
-      <if test="tGroup != null">
-        t_group,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="tId != null">
@@ -113,12 +105,6 @@
       </if>
       <if test="tUserId != null">
         #{tUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="tCourse != null">
-        #{tCourse,jdbcType=INTEGER},
-      </if>
-      <if test="tGroup != null">
-        #{tGroup,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -131,21 +117,13 @@
       <if test="tUserId != null">
         t_user_id = #{tUserId,jdbcType=VARCHAR},
       </if>
-      <if test="tCourse != null">
-        t_course = #{tCourse,jdbcType=INTEGER},
-      </if>
-      <if test="tGroup != null">
-        t_group = #{tGroup,jdbcType=INTEGER},
-      </if>
     </set>
     where t_id = #{tId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TTeacher">
     update t_teacher
     set t_name = #{tName,jdbcType=VARCHAR},
-      t_user_id = #{tUserId,jdbcType=VARCHAR},
-      t_course = #{tCourse,jdbcType=INTEGER},
-      t_group = #{tGroup,jdbcType=INTEGER}
+      t_user_id = #{tUserId,jdbcType=VARCHAR}
     where t_id = #{tId,jdbcType=INTEGER}
   </update>
 </mapper>

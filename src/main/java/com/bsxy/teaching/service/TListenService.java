@@ -10,5 +10,5 @@ import org.springframework.stereotype.Service;
  * @Version V1.0
  **/
 @Service
-public class TGroupService {
+public class TListenService {
 }

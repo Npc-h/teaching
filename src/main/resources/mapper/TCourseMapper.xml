@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.bsxy.teaching.pojo.TCourse">
     <id column="c_id" jdbcType="INTEGER" property="cId" />
     <result column="c_name" jdbcType="VARCHAR" property="cName" />
-    <result column="c_teacher_id" jdbcType="INTEGER" property="cTeacherId" />
-    <result column="c_para" jdbcType="VARCHAR" property="cPara" />
+    <result column="c_teacher" jdbcType="VARCHAR" property="cTeacher" />
+    <result column="c_site" jdbcType="VARCHAR" property="cSite" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    c_id, c_name, c_teacher_id, c_para
+    c_id, c_name, c_teacher, c_site
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -79,10 +79,10 @@
     where c_id = #{cId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bsxy.teaching.pojo.TCourse">
-    insert into t_course (c_id, c_name, c_teacher_id, 
-      c_para)
-    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{cTeacherId,jdbcType=INTEGER}, 
-      #{cPara,jdbcType=VARCHAR})
+    insert into t_course (c_id, c_name, c_teacher, 
+      c_site)
+    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{cTeacher,jdbcType=VARCHAR}, 
+      #{cSite,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TCourse">
     insert into t_course
@@ -93,11 +93,11 @@
       <if test="cName != null">
         c_name,
       </if>
-      <if test="cTeacherId != null">
-        c_teacher_id,
+      <if test="cTeacher != null">
+        c_teacher,
       </if>
-      <if test="cPara != null">
-        c_para,
+      <if test="cSite != null">
+        c_site,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -107,11 +107,11 @@
       <if test="cName != null">
         #{cName,jdbcType=VARCHAR},
       </if>
-      <if test="cTeacherId != null">
-        #{cTeacherId,jdbcType=INTEGER},
+      <if test="cTeacher != null">
+        #{cTeacher,jdbcType=VARCHAR},
       </if>
-      <if test="cPara != null">
-        #{cPara,jdbcType=VARCHAR},
+      <if test="cSite != null">
+        #{cSite,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -121,11 +121,11 @@
       <if test="cName != null">
         c_name = #{cName,jdbcType=VARCHAR},
       </if>
-      <if test="cTeacherId != null">
-        c_teacher_id = #{cTeacherId,jdbcType=INTEGER},
+      <if test="cTeacher != null">
+        c_teacher = #{cTeacher,jdbcType=VARCHAR},
       </if>
-      <if test="cPara != null">
-        c_para = #{cPara,jdbcType=VARCHAR},
+      <if test="cSite != null">
+        c_site = #{cSite,jdbcType=VARCHAR},
       </if>
     </set>
     where c_id = #{cId,jdbcType=INTEGER}
@@ -133,8 +133,8 @@
   <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TCourse">
     update t_course
     set c_name = #{cName,jdbcType=VARCHAR},
-      c_teacher_id = #{cTeacherId,jdbcType=INTEGER},
-      c_para = #{cPara,jdbcType=VARCHAR}
+      c_teacher = #{cTeacher,jdbcType=VARCHAR},
+      c_site = #{cSite,jdbcType=VARCHAR}
     where c_id = #{cId,jdbcType=INTEGER}
   </update>
 </mapper>

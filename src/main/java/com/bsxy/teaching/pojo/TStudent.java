@@ -8,8 +8,6 @@ public class TStudent {
 
     private String sName;
 
-    private String sCourse;
-
     private String sNumber;
 
     private String sAge;

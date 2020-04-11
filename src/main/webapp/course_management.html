@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>课程管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        .layui-table-cell {
+            height: 64px;
+            line-height: 28px;
+            padding: 0 15px;
+            position: relative;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input type="text" name="foodName" placeholder="请输入课程名称" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+                        <div class="layui-input-inline lafite_search layui-show-xs-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                查询
+                            </button>
+                            <button class="layui-btn lafite_blue_btn" type="reset" lay-submit="">
+                                重置
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-header">
+                    <button class="layui-btn lafite_card_btn" onclick="addFood()">新增</button>
+                    <button class="layui-btn lafite_card_btn" onclick="editFood()">编辑</button>
+                    <button class="layui-btn lafite_card_btn" onclick="delFood()">删除</button>
+                </div>
+
+                <table id="foodList" class="layui-table layui-form" lay-filter="foodList"></table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+
+<script>
+    var tables;
+    layui.use(['laypage', 'laydate', 'form', 'table'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        var laypage = layui.laypage;
+        var table = layui.table;
+        tables = table;
+
+        // 执行搜索，表格重载
+        form.on('submit(sreach)', function (data) {
+            //搜索条件
+            var foodName = data.field.foodName;
+
+            table.reload('foodList', {
+                method: 'post'
+                , where: {
+                    'foodName': foodName
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+            return false;
+        });
+
+
+        //用户列表
+        var tableIns = table.render({
+            elem: '#foodList',
+            url: '/selectFood',
+            page: true,
+            height: "full-200",
+            limits: [10, 15, 20, 25],
+            limit: 10,
+            id: "foodList",
+            cols: [[
+                {type: "radio", fixed: "left", width: 50, style: "height:110px;"},
+                {field: 'FId', title: '课程编码', minWidth: 100, align: "center"},
+                {field: 'FName', title: '课程名', minWidth: 100, align: "center"},
+                {field: 'FPhoto', title: '上课老师', minWidth: 100, align: "center"},
+                {field: 'FResult', title: '上课地点', minWidth: 100, align: "center"}
+            ]]
+        });
+
+    });
+    //新增食品
+    function addFood(){
+        xadmin.open('增加食品','food_add.html');
+    }
+
+    //编辑食品
+    function editFood() {
+        var checkStatus = tables.checkStatus('foodList');
+        if (checkStatus.data.length <= 0) {
+            layer.msg('请选择需要编辑的食品', {icon: 5});
+            return false;
+        }
+
+        localStorage.setItem("FId",checkStatus.data[0].FId);
+        localStorage.setItem("FName",checkStatus.data[0].FName);
+        localStorage.setItem("FResult",checkStatus.data[0].FResult);
+
+        xadmin.open('食品编辑','food_edit.html');
+
+    }
+
+    //删除食品
+    function delFood() {
+        var checkStatus = tables.checkStatus('foodList');
+        if (checkStatus.data.length <= 0) {
+            layer.msg('请选择需要删除的食品', {icon: 5});
+            return false;
+        }
+        layer.confirm('确认要删除id为' + checkStatus.data[0].FId + "的食品吗", function (index) {
+
+            $.ajax({
+                url: 'http://localhost:8080/deleteFood',
+                method: 'post',
+                data: {"FId": checkStatus.data[0].FId},
+                dataType: 'JSON',
+                success: function (res) {
+                    if (JSON.stringify(res) === "1") {
+                        layer.msg('删除成功', {icon: 1, time: 1000}, function () {
+                            window.location.reload();
+                            //关闭当前frame
+                            //xadmin.close();
+
+                            // 可以对父窗口进行刷新
+                            //xadmin.father_reload();
+                        });
+                    } else {
+                        layer.msg('删除失败', {icon: 2});
+                    }
+                },
+                error: function (data) {
+                    layer.msg("网络错误");
+                }
+            });
+            return false;
+
+        });
+
+    }
+
+
+</script>
+</html>

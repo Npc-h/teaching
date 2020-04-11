@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bsxy.teaching.mapper.TGroupMapper">
-  <resultMap id="BaseResultMap" type="com.bsxy.teaching.pojo.TGroup">
-    <id column="g_id" jdbcType="INTEGER" property="gId" />
-    <result column="g_name" jdbcType="VARCHAR" property="gName" />
-    <result column="g_para" jdbcType="VARCHAR" property="gPara" />
+<mapper namespace="com.bsxy.teaching.mapper.TListenMapper">
+  <resultMap id="BaseResultMap" type="com.bsxy.teaching.pojo.TListen">
+    <id column="l_id" jdbcType="INTEGER" property="lId" />
+    <result column="l_course_name" jdbcType="VARCHAR" property="lCourseName" />
+    <result column="l_teacher" jdbcType="VARCHAR" property="lTeacher" />
+    <result column="l_listen_person" jdbcType="VARCHAR" property="lListenPerson" />
+    <result column="l_site" jdbcType="VARCHAR" property="lSite" />
+    <result column="l_tag" jdbcType="CHAR" property="lTag" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,65 +68,97 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    g_id, g_name, g_para
+    l_id, l_course_name, l_teacher, l_listen_person, l_site, l_tag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_group
-    where g_id = #{gId,jdbcType=INTEGER}
+    from t_listen
+    where l_id = #{lId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_group
-    where g_id = #{gId,jdbcType=INTEGER}
+    delete from t_listen
+    where l_id = #{lId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bsxy.teaching.pojo.TGroup">
-    insert into t_group (g_id, g_name, g_para
+  <insert id="insert" parameterType="com.bsxy.teaching.pojo.TListen">
+    insert into t_listen (l_id, l_course_name, l_teacher, 
+      l_listen_person, l_site, l_tag
       )
-    values (#{gId,jdbcType=INTEGER}, #{gName,jdbcType=VARCHAR}, #{gPara,jdbcType=VARCHAR}
+    values (#{lId,jdbcType=INTEGER}, #{lCourseName,jdbcType=VARCHAR}, #{lTeacher,jdbcType=VARCHAR}, 
+      #{lListenPerson,jdbcType=VARCHAR}, #{lSite,jdbcType=VARCHAR}, #{lTag,jdbcType=CHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TGroup">
-    insert into t_group
+  <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TListen">
+    insert into t_listen
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="gId != null">
-        g_id,
+      <if test="lId != null">
+        l_id,
       </if>
-      <if test="gName != null">
-        g_name,
+      <if test="lCourseName != null">
+        l_course_name,
       </if>
-      <if test="gPara != null">
-        g_para,
+      <if test="lTeacher != null">
+        l_teacher,
+      </if>
+      <if test="lListenPerson != null">
+        l_listen_person,
+      </if>
+      <if test="lSite != null">
+        l_site,
+      </if>
+      <if test="lTag != null">
+        l_tag,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="gId != null">
-        #{gId,jdbcType=INTEGER},
+      <if test="lId != null">
+        #{lId,jdbcType=INTEGER},
       </if>
-      <if test="gName != null">
-        #{gName,jdbcType=VARCHAR},
+      <if test="lCourseName != null">
+        #{lCourseName,jdbcType=VARCHAR},
       </if>
-      <if test="gPara != null">
-        #{gPara,jdbcType=VARCHAR},
+      <if test="lTeacher != null">
+        #{lTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="lListenPerson != null">
+        #{lListenPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="lSite != null">
+        #{lSite,jdbcType=VARCHAR},
+      </if>
+      <if test="lTag != null">
+        #{lTag,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bsxy.teaching.pojo.TGroup">
-    update t_group
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsxy.teaching.pojo.TListen">
+    update t_listen
     <set>
-      <if test="gName != null">
-        g_name = #{gName,jdbcType=VARCHAR},
+      <if test="lCourseName != null">
+        l_course_name = #{lCourseName,jdbcType=VARCHAR},
       </if>
-      <if test="gPara != null">
-        g_para = #{gPara,jdbcType=VARCHAR},
+      <if test="lTeacher != null">
+        l_teacher = #{lTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="lListenPerson != null">
+        l_listen_person = #{lListenPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="lSite != null">
+        l_site = #{lSite,jdbcType=VARCHAR},
+      </if>
+      <if test="lTag != null">
+        l_tag = #{lTag,jdbcType=CHAR},
       </if>
     </set>
-    where g_id = #{gId,jdbcType=INTEGER}
+    where l_id = #{lId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TGroup">
-    update t_group
-    set g_name = #{gName,jdbcType=VARCHAR},
-      g_para = #{gPara,jdbcType=VARCHAR}
-    where g_id = #{gId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TListen">
+    update t_listen
+    set l_course_name = #{lCourseName,jdbcType=VARCHAR},
+      l_teacher = #{lTeacher,jdbcType=VARCHAR},
+      l_listen_person = #{lListenPerson,jdbcType=VARCHAR},
+      l_site = #{lSite,jdbcType=VARCHAR},
+      l_tag = #{lTag,jdbcType=CHAR}
+    where l_id = #{lId,jdbcType=INTEGER}
   </update>
 </mapper>

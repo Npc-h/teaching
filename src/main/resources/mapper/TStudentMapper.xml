@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.bsxy.teaching.pojo.TStudent">
     <id column="s_id" jdbcType="INTEGER" property="sId" />
     <result column="s_name" jdbcType="VARCHAR" property="sName" />
-    <result column="s_course" jdbcType="VARCHAR" property="sCourse" />
     <result column="s_number" jdbcType="VARCHAR" property="sNumber" />
     <result column="s_age" jdbcType="VARCHAR" property="sAge" />
     <result column="s_sex" jdbcType="VARCHAR" property="sSex" />
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    s_id, s_name, s_course, s_number, s_age, s_sex, s_user_id
+    s_id, s_name, s_number, s_age, s_sex, s_user_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -82,12 +81,12 @@
     where s_id = #{sId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bsxy.teaching.pojo.TStudent">
-    insert into t_student (s_id, s_name, s_course, 
-      s_number, s_age, s_sex, 
-      s_user_id)
-    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sCourse,jdbcType=VARCHAR}, 
-      #{sNumber,jdbcType=VARCHAR}, #{sAge,jdbcType=VARCHAR}, #{sSex,jdbcType=VARCHAR}, 
-      #{sUserId,jdbcType=VARCHAR})
+    insert into t_student (s_id, s_name, s_number, 
+      s_age, s_sex, s_user_id
+      )
+    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sNumber,jdbcType=VARCHAR}, 
+      #{sAge,jdbcType=VARCHAR}, #{sSex,jdbcType=VARCHAR}, #{sUserId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TStudent">
     insert into t_student
@@ -97,9 +96,6 @@
       </if>
       <if test="sName != null">
         s_name,
-      </if>
-      <if test="sCourse != null">
-        s_course,
       </if>
       <if test="sNumber != null">
         s_number,
@@ -121,9 +117,6 @@
       <if test="sName != null">
         #{sName,jdbcType=VARCHAR},
       </if>
-      <if test="sCourse != null">
-        #{sCourse,jdbcType=VARCHAR},
-      </if>
       <if test="sNumber != null">
         #{sNumber,jdbcType=VARCHAR},
       </if>
@@ -144,9 +137,6 @@
       <if test="sName != null">
         s_name = #{sName,jdbcType=VARCHAR},
       </if>
-      <if test="sCourse != null">
-        s_course = #{sCourse,jdbcType=VARCHAR},
-      </if>
       <if test="sNumber != null">
         s_number = #{sNumber,jdbcType=VARCHAR},
       </if>
@@ -165,7 +155,6 @@
   <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TStudent">
     update t_student
     set s_name = #{sName,jdbcType=VARCHAR},
-      s_course = #{sCourse,jdbcType=VARCHAR},
       s_number = #{sNumber,jdbcType=VARCHAR},
       s_age = #{sAge,jdbcType=VARCHAR},
       s_sex = #{sSex,jdbcType=VARCHAR},
