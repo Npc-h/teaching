@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsxy.teaching.mapper.TEvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.bsxy.teaching.pojo.TEvaluate">
+    <id column="e_id" jdbcType="INTEGER" property="eId" />
+    <result column="e_grade" jdbcType="VARCHAR" property="eGrade" />
+    <result column="e_content" jdbcType="VARCHAR" property="eContent" />
+    <result column="e_course" jdbcType="VARCHAR" property="eCourse" />
+    <result column="e_person" jdbcType="VARCHAR" property="ePerson" />
+    <result column="e_para1" jdbcType="VARCHAR" property="ePara1" />
+    <result column="e_para2" jdbcType="VARCHAR" property="ePara2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    e_id, e_grade, e_content, e_course, e_person, e_para1, e_para2
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_evaluate
+    where e_id = #{eId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_evaluate
+    where e_id = #{eId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bsxy.teaching.pojo.TEvaluate">
+    insert into t_evaluate (e_id, e_grade, e_content, 
+      e_course, e_person, e_para1, 
+      e_para2)
+    values (#{eId,jdbcType=INTEGER}, #{eGrade,jdbcType=VARCHAR}, #{eContent,jdbcType=VARCHAR}, 
+      #{eCourse,jdbcType=VARCHAR}, #{ePerson,jdbcType=VARCHAR}, #{ePara1,jdbcType=VARCHAR}, 
+      #{ePara2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TEvaluate">
+    insert into t_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eId != null">
+        e_id,
+      </if>
+      <if test="eGrade != null">
+        e_grade,
+      </if>
+      <if test="eContent != null">
+        e_content,
+      </if>
+      <if test="eCourse != null">
+        e_course,
+      </if>
+      <if test="ePerson != null">
+        e_person,
+      </if>
+      <if test="ePara1 != null">
+        e_para1,
+      </if>
+      <if test="ePara2 != null">
+        e_para2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eId != null">
+        #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="eGrade != null">
+        #{eGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="eContent != null">
+        #{eContent,jdbcType=VARCHAR},
+      </if>
+      <if test="eCourse != null">
+        #{eCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="ePerson != null">
+        #{ePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="ePara1 != null">
+        #{ePara1,jdbcType=VARCHAR},
+      </if>
+      <if test="ePara2 != null">
+        #{ePara2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsxy.teaching.pojo.TEvaluate">
+    update t_evaluate
+    <set>
+      <if test="eGrade != null">
+        e_grade = #{eGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="eContent != null">
+        e_content = #{eContent,jdbcType=VARCHAR},
+      </if>
+      <if test="eCourse != null">
+        e_course = #{eCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="ePerson != null">
+        e_person = #{ePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="ePara1 != null">
+        e_para1 = #{ePara1,jdbcType=VARCHAR},
+      </if>
+      <if test="ePara2 != null">
+        e_para2 = #{ePara2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where e_id = #{eId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TEvaluate">
+    update t_evaluate
+    set e_grade = #{eGrade,jdbcType=VARCHAR},
+      e_content = #{eContent,jdbcType=VARCHAR},
+      e_course = #{eCourse,jdbcType=VARCHAR},
+      e_person = #{ePerson,jdbcType=VARCHAR},
+      e_para1 = #{ePara1,jdbcType=VARCHAR},
+      e_para2 = #{ePara2,jdbcType=VARCHAR}
+    where e_id = #{eId,jdbcType=INTEGER}
+  </update>
+</mapper>

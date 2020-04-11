@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsxy.teaching.mapper.TStudentMapper">
+  <resultMap id="BaseResultMap" type="com.bsxy.teaching.pojo.TStudent">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="s_name" jdbcType="VARCHAR" property="sName" />
+    <result column="s_course" jdbcType="VARCHAR" property="sCourse" />
+    <result column="s_number" jdbcType="VARCHAR" property="sNumber" />
+    <result column="s_age" jdbcType="VARCHAR" property="sAge" />
+    <result column="s_sex" jdbcType="VARCHAR" property="sSex" />
+    <result column="s_user_id" jdbcType="VARCHAR" property="sUserId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    s_id, s_name, s_course, s_number, s_age, s_sex, s_user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_student
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_student
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bsxy.teaching.pojo.TStudent">
+    insert into t_student (s_id, s_name, s_course, 
+      s_number, s_age, s_sex, 
+      s_user_id)
+    values (#{sId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, #{sCourse,jdbcType=VARCHAR}, 
+      #{sNumber,jdbcType=VARCHAR}, #{sAge,jdbcType=VARCHAR}, #{sSex,jdbcType=VARCHAR}, 
+      #{sUserId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bsxy.teaching.pojo.TStudent">
+    insert into t_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="sName != null">
+        s_name,
+      </if>
+      <if test="sCourse != null">
+        s_course,
+      </if>
+      <if test="sNumber != null">
+        s_number,
+      </if>
+      <if test="sAge != null">
+        s_age,
+      </if>
+      <if test="sSex != null">
+        s_sex,
+      </if>
+      <if test="sUserId != null">
+        s_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null">
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sCourse != null">
+        #{sCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="sNumber != null">
+        #{sNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sAge != null">
+        #{sAge,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null">
+        #{sSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sUserId != null">
+        #{sUserId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsxy.teaching.pojo.TStudent">
+    update t_student
+    <set>
+      <if test="sName != null">
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sCourse != null">
+        s_course = #{sCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="sNumber != null">
+        s_number = #{sNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sAge != null">
+        s_age = #{sAge,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null">
+        s_sex = #{sSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sUserId != null">
+        s_user_id = #{sUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TStudent">
+    update t_student
+    set s_name = #{sName,jdbcType=VARCHAR},
+      s_course = #{sCourse,jdbcType=VARCHAR},
+      s_number = #{sNumber,jdbcType=VARCHAR},
+      s_age = #{sAge,jdbcType=VARCHAR},
+      s_sex = #{sSex,jdbcType=VARCHAR},
+      s_user_id = #{sUserId,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

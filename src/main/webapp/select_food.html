@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>食品检索</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        .layui-table-cell {
+            height: 64px;
+            line-height: 28px;
+            padding: 0 15px;
+            position: relative;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input type="text" name="foodName" placeholder="请输入食品名称" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+
+                        <div class="layui-input-inline lafite_search layui-show-xs-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                查询
+                            </button>
+                            <button class="layui-btn lafite_blue_btn" type="reset" lay-submit="">
+                                重置
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-header">
+                    <button class="layui-btn lafite_card_btn" onclick="collectFood()">收藏</button>
+                </div>
+
+                <table id="foodList" class="layui-table layui-form" lay-filter="foodList"></table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/html" id="imgtmp">
+    <img src="{{d.FPhoto}}" style="height: 66px; width:140px;"/>
+</script>
+
+
+<script>
+    var tables;
+    layui.use(['laypage', 'laydate', 'form', 'table'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        var laypage = layui.laypage;
+        var table = layui.table;
+        tables = table;
+
+        // 执行搜索，表格重载
+        form.on('submit(sreach)', function (data) {
+            //搜索条件
+            var foodName = data.field.foodName;
+
+            table.reload('foodList', {
+                method: 'post'
+                , where: {
+                    'foodName': foodName
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+            return false;
+        });
+
+
+        //用户列表
+        var tableIns = table.render({
+            elem: '#foodList',
+            url: '/selectFood',
+            page: true,
+            height: "full-200",
+            limits: [10, 15, 20, 25],
+            limit: 10,
+            id: "foodList",
+            cols: [[
+                {type: "radio", fixed: "left", width: 50, style: "height:110px;"},
+                {field: 'FId', title: '食品id', minWidth: 50, align: "center"},
+                {field: 'FName', title: '食品名称', minWidth: 50, align: "center"},
+                {field: 'FPhoto', title: '食品图片', minWidth: 100, templet: "#imgtmp"},
+                {field: 'FResult', title: '食品描述', minWidth: 100, align: "center"}
+            ]]
+        });
+
+    });
+
+    //编辑食品
+    function collectFood() {
+        var checkStatus = tables.checkStatus('foodList');
+        if (checkStatus.data.length <= 0) {
+            layer.msg('请选择需要收藏的食品', {icon: 5});
+            return false;
+        }
+
+
+        $.ajax({
+            url: 'http://localhost:8080/insertCollectible',
+            method: 'post',
+             data:{"FId":checkStatus.data[0].FId,"userid":localStorage.getItem("userid")},
+            dataType: 'JSON',
+            success: function (res) {
+                layer.msg('收藏成功',{icon:1});
+            },
+            error: function (data) {
+                layer.msg("网络错误");
+            }
+        });
+    }
+
+
+
+</script>
+</html>
