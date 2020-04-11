@@ -24,4 +24,6 @@ public interface TTeacherMapper {
     int updateByPrimaryKeySelective(TTeacher record);
 
     int updateByPrimaryKey(TTeacher record);
+
+    List<TTeacher> selectAllTeacher();
 }

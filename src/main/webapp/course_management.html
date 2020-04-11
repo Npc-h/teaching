@@ -25,6 +25,12 @@
             box-sizing: border-box;
         }
     </style>
+    <script>
+        if(localStorage.getItem("type") != "0"){
+            alert("请使用管理员登录");
+            parent.location.reload();
+        }
+    </script>
 </head>
 <body>
 <div class="layui-fluid">
@@ -34,7 +40,7 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="foodName" placeholder="请输入课程名称" autocomplete="off"
+                            <input type="text" name="cName" placeholder="请输入课程名称" autocomplete="off"
                                    class="layui-input">
                         </div>
 
@@ -49,12 +55,12 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn lafite_card_btn" onclick="addFood()">新增</button>
-                    <button class="layui-btn lafite_card_btn" onclick="editFood()">编辑</button>
-                    <button class="layui-btn lafite_card_btn" onclick="delFood()">删除</button>
+                    <button class="layui-btn lafite_card_btn" onclick="addCourse()">新增</button>
+                    <button class="layui-btn lafite_card_btn" onclick="editCourse()">编辑</button>
+                    <button class="layui-btn lafite_card_btn" onclick="delCourse()">删除</button>
                 </div>
 
-                <table id="foodList" class="layui-table layui-form" lay-filter="foodList"></table>
+                <table id="courseList" class="layui-table layui-form" lay-filter="courseList"></table>
 
             </div>
         </div>
@@ -67,6 +73,8 @@
 <script>
     var tables;
     layui.use(['laypage', 'laydate', 'form', 'table'], function () {
+
+
         var laydate = layui.laydate;
         var form = layui.form;
         var laypage = layui.laypage;
@@ -76,12 +84,12 @@
         // 执行搜索，表格重载
         form.on('submit(sreach)', function (data) {
             //搜索条件
-            var foodName = data.field.foodName;
+            var cName = data.field.cName;
 
-            table.reload('foodList', {
+            table.reload('courseList', {
                 method: 'post'
                 , where: {
-                    'foodName': foodName
+                    'CourseName': cName
                 }
                 , page: {
                     curr: 1
@@ -93,33 +101,34 @@
 
         //用户列表
         var tableIns = table.render({
-            elem: '#foodList',
-            url: '/selectFood',
+            elem: '#courseList',
+            url: '/selectCourse',
             page: true,
             height: "full-200",
             limits: [10, 15, 20, 25],
             limit: 10,
-            id: "foodList",
+            id: "courseList",
             cols: [[
                 {type: "radio", fixed: "left", width: 50, style: "height:110px;"},
-                {field: 'FId', title: '课程编码', minWidth: 100, align: "center"},
-                {field: 'FName', title: '课程名', minWidth: 100, align: "center"},
-                {field: 'FPhoto', title: '上课老师', minWidth: 100, align: "center"},
-                {field: 'FResult', title: '上课地点', minWidth: 100, align: "center"}
+                {field: 'CId', title: '课程编码', minWidth: 100, align: "center"},
+                {field: 'CName', title: '课程名', minWidth: 100, align: "center"},
+                {field: 'CTeacher', title: '上课老师', minWidth: 100, align: "center"},
+                {field: 'CSite', title: '上课地点', minWidth: 100, align: "center"}
             ]]
         });
 
+
     });
     //新增食品
-    function addFood(){
-        xadmin.open('增加食品','food_add.html');
+    function addCourse(){
+        xadmin.open('新增课程','course_add.html');
     }
 
     //编辑食品
-    function editFood() {
-        var checkStatus = tables.checkStatus('foodList');
+    function editCourse() {
+        var checkStatus = tables.checkStatus('courseList');
         if (checkStatus.data.length <= 0) {
-            layer.msg('请选择需要编辑的食品', {icon: 5});
+            layer.msg('请选择需要编辑的课程', {icon: 5});
             return false;
         }
 
@@ -132,13 +141,13 @@
     }
 
     //删除食品
-    function delFood() {
-        var checkStatus = tables.checkStatus('foodList');
+    function delCourse() {
+        var checkStatus = tables.checkStatus('courseList');
         if (checkStatus.data.length <= 0) {
-            layer.msg('请选择需要删除的食品', {icon: 5});
+            layer.msg('请选择需要删除的课程', {icon: 5});
             return false;
         }
-        layer.confirm('确认要删除id为' + checkStatus.data[0].FId + "的食品吗", function (index) {
+        layer.confirm('确认要删除id为' + checkStatus.data[0].FId + "的课程吗", function (index) {
 
             $.ajax({
                 url: 'http://localhost:8080/deleteFood',

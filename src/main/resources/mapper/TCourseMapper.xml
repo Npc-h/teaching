@@ -137,4 +137,24 @@
       c_site = #{cSite,jdbcType=VARCHAR}
     where c_id = #{cId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCourse"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_course
+    <if test="courseName !=null">
+      where  c_name LIKE CONCAT('%',#{courseName,jdbcType=VARCHAR},'%')
+    </if>
+    LIMIT #{curr,jdbcType=INTEGER},#{limits,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectCountCourse"  resultType="java.lang.Integer">
+    select
+    COUNT(*)
+    from t_course
+    <if test="courseName !=null">
+      where  c_name LIKE CONCAT('%',#{courseName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
 </mapper>

@@ -21,4 +21,8 @@ public interface TCourseMapper {
     int updateByPrimaryKeySelective(TCourse record);
 
     int updateByPrimaryKey(TCourse record);
+
+    List<TCourse> selectCourse(@Param("curr") Integer curr, @Param("limits") Integer limits,@Param("courseName") String courseName);
+
+    Integer selectCountCourse(@Param("courseName") String courseName);
 }

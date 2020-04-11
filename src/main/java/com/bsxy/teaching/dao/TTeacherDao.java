@@ -5,6 +5,8 @@ import com.bsxy.teaching.pojo.TTeacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @ClassName TTeacherDao
  * @Description: TODO
@@ -19,5 +21,9 @@ public class TTeacherDao {
 
     public void registerUser(TTeacher tTeacher) {
         tTeacherMapper.insertSelective(tTeacher);
+    }
+
+    public List<TTeacher> selectAllTeacher() {
+        return tTeacherMapper.selectAllTeacher();
     }
 }

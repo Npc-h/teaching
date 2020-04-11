@@ -126,4 +126,11 @@
       t_user_id = #{tUserId,jdbcType=VARCHAR}
     where t_id = #{tId,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectAllTeacher" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_teacher
+  </select>
 </mapper>

@@ -65,11 +65,7 @@
                             localStorage.setItem("username",newRes.username);
                             localStorage.setItem("type",newRes.type);
                             localStorage.setItem("userid",newRes.userid);
-                            if(newRes.type === "0"){
-                                location.href = 'http://localhost:8080/indexAdmin';
-                            }else {
-                                location.href = 'http://localhost:8080/index';
-                            }
+                            location.href = 'http://localhost:8080/index';
                         }else {
                             layer.msg("用户名或者密码错误");
                         }
