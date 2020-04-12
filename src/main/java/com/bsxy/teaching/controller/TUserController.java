@@ -72,13 +72,32 @@ public class TUserController {
         return i;
     }
 
-    //修改密码
+    //重置密码
     @RequestMapping(value = "/changePassword")
     @ResponseBody
     public Integer changePassword(HttpServletRequest request){
 
         //修改密码
         String newPassword = request.getParameter("passwordNew");
+        String tUserId = request.getParameter("tUserId");
+        return tUserService.tUserService(tUserId,newPassword);
+    }
+
+    //修改密码
+    @RequestMapping(value = "/changePasswordC")
+    @ResponseBody
+    public Integer changePasswordC(HttpServletRequest request){
+        //校验密码
+        TUser tUser = new TUser();
+        String uName = request.getParameter("username");
+        String oldPassword = request.getParameter("oldpassword");
+        tUser.setUName(uName);
+        tUser.setUPassword(oldPassword);
+        TUser tUsers = tUserService.verifyLogin(tUser);
+        if(tUsers == null) return 3;
+
+        //修改密码
+        String newPassword = request.getParameter("newpassword");
         String tUserId = request.getParameter("tUserId");
         return tUserService.tUserService(tUserId,newPassword);
     }

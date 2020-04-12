@@ -161,4 +161,50 @@
       l_tag = #{lTag,jdbcType=CHAR}
     where l_id = #{lId,jdbcType=INTEGER}
   </update>
+
+
+  <select id="verifyCourse" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_listen
+    where l_course_name = #{cName,jdbcType=VARCHAR}
+    AND l_listen_person = #{lName,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <select id="selectCourseListen"  resultMap="BaseResultMap">
+    select
+    l_id, l_course_name, l_teacher, l_listen_person, l_site, (case when T.l_tag='0' then '否' when  T.l_tag='1' then '是' END) as l_tag
+    from t_listen T
+    where 1=1
+    <if test="courseName !=null">
+      AND  l_course_name LIKE CONCAT('%',#{courseName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="listenName !=null">
+      AND  l_listen_person LIKE CONCAT('%',#{listenName,jdbcType=VARCHAR},'%')
+    </if>
+    LIMIT #{curr,jdbcType=INTEGER},#{limits,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectCourseListenCount"  resultType="java.lang.Integer">
+    select
+    COUNT(*)
+    from t_listen
+    where 1=1
+    <if test="courseName !=null">
+      AND  l_course_name LIKE CONCAT('%',#{courseName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="listenName !=null">
+      AND  l_listen_person LIKE CONCAT('%',#{listenName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+
+
+  <update id="updateEvaluate" parameterType="com.bsxy.teaching.pojo.TListen">
+    update t_listen
+    set l_tag = '1'
+    where l_id = #{lID,jdbcType=INTEGER}
+  </update>
 </mapper>

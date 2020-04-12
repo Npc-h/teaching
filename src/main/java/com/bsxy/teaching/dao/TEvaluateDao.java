@@ -2,6 +2,7 @@ package com.bsxy.teaching.dao;
 
 import com.bsxy.teaching.mapper.TEvaluateMapper;
 import com.bsxy.teaching.pojo.TCourse;
+import com.bsxy.teaching.pojo.TEvaluate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,5 +26,9 @@ public class TEvaluateDao {
 
     public Integer selectEvaluationCount(String evaluationName, String personName) {
         return tEvaluateMapper.selectEvaluationCount(evaluationName,personName);
+    }
+
+    public Integer insertEvaluate(TEvaluate tEvaluate) {
+        return  tEvaluateMapper.insertSelective(tEvaluate);
     }
 }
