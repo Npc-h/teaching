@@ -3,6 +3,7 @@ package com.bsxy.teaching.mapper;
 import com.bsxy.teaching.pojo.TStudent;
 import java.util.List;
 
+import com.bsxy.teaching.pojo.TTeacher;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,8 @@ public interface TStudentMapper {
     int updateByPrimaryKeySelective(TStudent record);
 
     int updateByPrimaryKey(TStudent record);
+
+    List<TTeacher> selectStudent(@Param("curr") Integer curr, @Param("limits") Integer limits,@Param("studentName") String studentName);
+
+    Integer selectStudentCount(@Param("studentName") String studentName);
 }

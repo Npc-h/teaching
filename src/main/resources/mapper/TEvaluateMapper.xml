@@ -161,4 +161,33 @@
       e_person = #{ePerson,jdbcType=VARCHAR}
     where e_id = #{eId,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectEvaluation"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_evaluate
+    where 1=1
+    <if test="evaluationName !=null">
+      AND e_course LIKE CONCAT('%',#{evaluationName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="personName !=null">
+      AND e_person LIKE CONCAT('%',#{personName,jdbcType=VARCHAR},'%')
+    </if>
+    LIMIT #{curr,jdbcType=INTEGER},#{limits,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectEvaluationCount"  resultType="java.lang.Integer">
+    select
+    COUNT(*)
+    from t_evaluate
+    where 1=1
+    <if test="evaluationName !=null">
+      AND e_course LIKE CONCAT('%',#{evaluationName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="personName !=null">
+      AND e_person LIKE CONCAT('%',#{personName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
 </mapper>

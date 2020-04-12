@@ -71,4 +71,15 @@ public class TUserController {
         int i = tUserService. registerUser(tUser);
         return i;
     }
+
+    //修改密码
+    @RequestMapping(value = "/changePassword")
+    @ResponseBody
+    public Integer changePassword(HttpServletRequest request){
+
+        //修改密码
+        String newPassword = request.getParameter("passwordNew");
+        String tUserId = request.getParameter("tUserId");
+        return tUserService.tUserService(tUserId,newPassword);
+    }
 }

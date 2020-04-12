@@ -26,4 +26,12 @@ public class TTeacherDao {
     public List<TTeacher> selectAllTeacher() {
         return tTeacherMapper.selectAllTeacher();
     }
+
+    public List<TTeacher> selectTeacher(int curr, int limits, String teacherName) {
+        return tTeacherMapper.selectTeacher(curr,limits,teacherName);
+    }
+
+    public Integer selectCountTeacher(String teacherName) {
+        return tTeacherMapper.selectCountTeacher(teacherName);
+    }
 }

@@ -35,4 +35,18 @@ public class TTeacherController {
         return tTeacherList;
     }
 
+    //查询教师
+    @RequestMapping(value = "/selectTeachers")
+    @ResponseBody
+    public Map<String, Object> selectTeacher(String page, String limit, String teacherName){
+        List<TTeacher> tTeacher = tTeacherService.selectTeacher(page, limit,teacherName);
+        JSONArray array = JSONArray.fromObject(tTeacher);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 0);
+        result.put("msg", "");
+        result.put("count", tTeacherService.selectCountTeacher(teacherName));
+        result.put("data", array);
+        return result;
+    }
+
 }

@@ -26,4 +26,8 @@ public interface TTeacherMapper {
     int updateByPrimaryKey(TTeacher record);
 
     List<TTeacher> selectAllTeacher();
+
+    List<TTeacher> selectTeacher(@Param("curr") Integer curr, @Param("limits") Integer limits,@Param("teacherName") String teacherName);
+
+    Integer selectCountTeacher(@Param("teacherName") String teacherName);
 }

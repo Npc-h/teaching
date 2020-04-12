@@ -50,4 +50,11 @@ public class TUserService {
         }
         return tUserDao.registerUser(tUser);
     }
+
+    public Integer tUserService(String tUserId, String newPassword) {
+        TUser tUser = new TUser();
+        tUser.setUId(Integer.valueOf(tUserId));
+        tUser.setUPassword(newPassword);
+        return tUserDao.tUserService(tUser);
+    }
 }

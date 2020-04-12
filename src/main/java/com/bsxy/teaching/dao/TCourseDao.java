@@ -30,4 +30,12 @@ public class TCourseDao {
     public Integer addCourse(TCourse tCourse) {
         return tCourseMapper.insertSelective(tCourse);
     }
+
+    public Integer editCourse(TCourse tCourse) {
+        return tCourseMapper.updateByPrimaryKeySelective(tCourse);
+    }
+
+    public Integer deleteCourse(Integer cId) {
+        return tCourseMapper.deleteByPrimaryKey(cId);
+    }
 }

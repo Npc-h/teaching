@@ -1,5 +1,6 @@
 package com.bsxy.teaching.mapper;
 
+import com.bsxy.teaching.pojo.TCourse;
 import com.bsxy.teaching.pojo.TEvaluate;
 import java.util.List;
 
@@ -24,4 +25,8 @@ public interface TEvaluateMapper {
     int updateByPrimaryKeySelective(TEvaluate record);
 
     int updateByPrimaryKey(TEvaluate record);
+
+    List<TCourse> selectEvaluation(@Param("curr") Integer curr, @Param("limits") Integer limits,@Param("evaluationName") String evaluationName,@Param("personName") String personName);
+
+    Integer selectEvaluationCount(@Param("evaluationName") String evaluationName,@Param("personName") String personName);
 }

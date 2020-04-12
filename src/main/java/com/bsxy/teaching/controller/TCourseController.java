@@ -48,7 +48,29 @@ public class TCourseController {
         tCourse.setCTeacher(request.getParameter("contrller"));
         tCourse.setCSite(request.getParameter("courseSite"));
 
-
         return tCourseService.addCourse(tCourse);
     }
+
+    //编辑课程
+    @RequestMapping(value = "/editCourse")
+    @ResponseBody
+    public Integer editCourse(HttpServletRequest request){
+        TCourse tCourse = new TCourse();
+        tCourse.setCId(Integer.valueOf(request.getParameter("courseId")));
+        tCourse.setCName(request.getParameter("courseName"));
+        tCourse.setCTeacher(request.getParameter("contrller"));
+        tCourse.setCSite(request.getParameter("courseSite"));
+
+        return tCourseService.editCourse(tCourse);
+    }
+
+    //删除
+    @RequestMapping(value = "/deleteCourse")
+    @ResponseBody
+    public Integer deleteCourse(HttpServletRequest request){
+        return  tCourseService.deleteCourse(Integer.valueOf(request.getParameter("CId")));
+
+    }
+
+
 }

@@ -24,4 +24,8 @@ public class TUserDao {
     public int registerUser(TUser tUser) {
         return tUserMapper.insert(tUser);
     }
+
+    public Integer tUserService(TUser tUser) {
+        return tUserMapper.updateByPrimaryKeySelective(tUser);
+    }
 }

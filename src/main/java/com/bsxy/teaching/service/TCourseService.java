@@ -34,4 +34,12 @@ public class TCourseService {
     public Integer addCourse(TCourse tCourse) {
        return tCourseDao.addCourse(tCourse);
     }
+
+    public Integer editCourse(TCourse tCourse) {
+        return tCourseDao.editCourse(tCourse);
+    }
+
+    public Integer deleteCourse(Integer cId) {
+        return tCourseDao.deleteCourse(cId);
+    }
 }

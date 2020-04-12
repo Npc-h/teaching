@@ -22,4 +22,15 @@ public class TTeacherService {
     public List<TTeacher> selectAllTeacher() {
         return tTeacherDao.selectAllTeacher();
     }
+
+    public List<TTeacher> selectTeacher(String page, String limit, String teacherName) {
+        int curr = Integer.parseInt(page);
+        int limits = Integer.parseInt(limit);
+        curr = (curr-1)*limits;
+        return tTeacherDao.selectTeacher(curr,limits,teacherName);
+    }
+
+    public Integer selectCountTeacher(String teacherName) {
+        return tTeacherDao.selectCountTeacher(teacherName);
+    }
 }

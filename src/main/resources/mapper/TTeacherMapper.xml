@@ -133,4 +133,24 @@
     <include refid="Base_Column_List" />
     from t_teacher
   </select>
+
+  <select id="selectTeacher"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_teacher
+    <if test="teacherName !=null">
+      where  t_name LIKE CONCAT('%',#{teacherName,jdbcType=VARCHAR},'%')
+    </if>
+    LIMIT #{curr,jdbcType=INTEGER},#{limits,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectCountTeacher"  resultType="java.lang.Integer">
+    select
+    COUNT(*)
+    from t_teacher
+    <if test="teacherName !=null">
+      where  t_name LIKE CONCAT('%',#{teacherName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
 </mapper>

@@ -146,11 +146,8 @@
       <if test="sSex != null">
         s_sex = #{sSex,jdbcType=VARCHAR},
       </if>
-      <if test="sUserId != null">
-        s_user_id = #{sUserId,jdbcType=VARCHAR},
-      </if>
     </set>
-    where s_id = #{sId,jdbcType=INTEGER}
+    where s_user_id = #{sUserId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bsxy.teaching.pojo.TStudent">
     update t_student
@@ -161,4 +158,23 @@
       s_user_id = #{sUserId,jdbcType=VARCHAR}
     where s_id = #{sId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectStudent"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_student
+    <if test="studentName !=null">
+      where  s_name LIKE CONCAT('%',#{studentName,jdbcType=VARCHAR},'%')
+    </if>
+    LIMIT #{curr,jdbcType=INTEGER},#{limits,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectStudentCount"  resultType="java.lang.Integer">
+    select
+    COUNT(*)
+    from t_student
+    <if test="studentName !=null">
+      where  s_name LIKE CONCAT('%',#{studentName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
 </mapper>

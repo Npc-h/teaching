@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>评教查看</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        .layui-table-cell {
+            height: 64px;
+            line-height: 28px;
+            padding: 0 15px;
+            position: relative;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        if(localStorage.getItem("type") != "0"){
+            alert("请使用管理员登录");
+            parent.location.reload();
+        }
+    </script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input type="text" name="eName" placeholder="请输入评教课程" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+                        <div class="layui-input-inline lafite_search layui-show-xs-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                查询
+                            </button>
+                            <button class="layui-btn lafite_blue_btn" type="reset" lay-submit="">
+                                重置
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <table id="evaluationList" class="layui-table layui-form" lay-filter="evaluationList"></table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+
+<script>
+    var tables;
+    layui.use(['laypage', 'laydate', 'form', 'table'], function () {
+
+
+        var laydate = layui.laydate;
+        var form = layui.form;
+        var laypage = layui.laypage;
+        var table = layui.table;
+        tables = table;
+
+        // 执行搜索，表格重载
+        form.on('submit(sreach)', function (data) {
+            //搜索条件
+            var eName = data.field.eName;
+
+            table.reload('evaluationList', {
+                method: 'post'
+                , where: {
+                    'evaluationName': eName
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+            return false;
+        });
+
+
+        //用户列表
+        var tableIns = table.render({
+            elem: '#evaluationList',
+            url: '/selectEvaluation',
+            page: true,
+            height: "full-200",
+            limits: [10, 15, 20, 25],
+            limit: 10,
+            id: "evaluationList",
+            cols: [[
+                {type: "radio", fixed: "left", width: 50, style: "height:110px;"},
+                {field: 'EId', title: '评教编码', minWidth: 100, align: "center"},
+                {field: 'EGrade', title: '评教分数', minWidth: 100, align: "center"},
+                {field: 'EContent', title: '评教评价', minWidth: 100, align: "center"},
+                {field: 'ECourse', title: '评教课程', minWidth: 100, align: "center"},
+                {field: 'ETeacher', title: '任课老师', minWidth: 100, align: "center"},
+                {field: 'EPerson', title: '评价人', minWidth: 100, align: "center"},
+            ]]
+        });
+
+
+    });
+
+
+</script>
+</html>

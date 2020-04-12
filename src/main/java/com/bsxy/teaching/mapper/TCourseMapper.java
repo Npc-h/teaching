@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface TCourseMapper {
 
-    int deleteByPrimaryKey(Integer cId);
+    int deleteByPrimaryKey(@Param("cId") Integer cId);
 
     int insert(TCourse record);
 
